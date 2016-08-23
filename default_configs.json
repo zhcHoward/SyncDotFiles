@@ -1,6 +1,6 @@
 {
     "vim": {
         "files": [".vimrc"],
-        "folders": []
+        "folders": [".vim"]
     }
 }

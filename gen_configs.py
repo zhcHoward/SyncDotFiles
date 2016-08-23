@@ -33,6 +33,12 @@ class Config():
         # git pull
         self.update_local()
 
+    def generate_paths(conf, is_dir=False):
+        if os.path.isabs(conf):
+            local_path = conf
+            if not is_dir:
+                conf_file = os.path.basename()
+
     def generate_changes(self):
         for app, config in self.configs.items():
             for conf_file in config['files']:
@@ -48,6 +54,9 @@ class Config():
                 except FileNotFoundError:
                     os.mkdir(os.path.dirname(repo_path))
                     shutil.copy2(local_path, repo_path)
+
+            for conf_folder in config['folders']:
+                if os.path.isabs(conf_folder)
 
 
 if __name__ == '__main__':
