@@ -5,6 +5,7 @@ import os
 import git
 import shutil
 import json
+import platform
 
 
 class Config():
@@ -12,12 +13,21 @@ class Config():
     home = os.path.join('/home/', username)
     bakup_extension = '.bak'
     base_dir = os.path.dirname(os.path.abspath(__file__))
+    if platform.system() == 'Linux':
+        repo_home = os.path.join(home, '.my-configs')
+    elif platform.system() == 'Windowns':
+        repo_home = 'd:\\my-configs'  # TODO change to \User folder
+    else:
+        repo_home = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self):
         # init configs
-        # TODO load personal configs
-        with open(os.path.join(self.base_dir, 'default_configs.json')) as reader:
-            self.configs = json.load(reader)
+        try:
+            with open(os.path.join(self.base_dir, 'settings.json')) as reader:
+                self.settings = json.load(reader)
+        except FileNotFoundError:
+            with open(os.path.join(self.base_dir, 'default_settings.json')) as reader:
+                self.settings = json.load(reader)
 
     def is_first_time(self):
         if os.path.isfile(os.path.join(self.base_dir, 'last_update.txt')):
@@ -30,53 +40,49 @@ class Config():
         # git commit/push
 
     def download_change(self):
+        # create dir for remote files
         # git pull
         self.update_local()
 
-    def generate_paths(conf, is_dir=False):
-        if os.path.isabs(conf):
-            local_path = conf
+    def read_config(self, config_path, app, is_dir=False):
+        config_path = os.path.normpath(config_path)
+
+        if os.path.isabs(config_path):
+            local_path = config_path
+            base_name = os.path.basename(config_path)
+        else:
+            local_path = os.path.join(self.home, config_path)
+            base_name = config_path
+        repo_path = os.path.join(self.repo_home, app, base_name)
+
+        if not os.path.exists(local_path):
+            raise FileNotFoundError('local config file/folder cannot be found')
+        print(local_path, repo_path)
+        if not os.path.exists(repo_path):
             if not is_dir:
-                conf_file = os.path.basename()
+                os.makedirs(os.path.dirname(repo_path))
+
+        return local_path, repo_path
+
 
     def generate_changes(self):
-        for app, config in self.configs.items():
-            for conf_file in config['files']:
-                if os.path.isabs(conf_file):
-                    local_path = conf_file
-                    conf_file = os.path.basename(config_file)
-                else:
-                    local_path = os.path.join(self.home, conf_file)
-                repo_path = os.path.join(self.base_dir, app, conf_file)
+        settings = self.settings['local']['configs']
+        for app, config in settings.items():
+            for conf_path in config['files']:
+                local_path, repo_path = self.read_config(conf_path, app)
+                shutil.copy2(local_path, repo_path)
+            for conf_path in config['folders']:
+                local_path, repo_path = self.read_config(conf_path, app, True)
+                if os.path.exists(repo_path):
+                    shutil.rmtree(repo_path)
+                shutil.copytree(local_path, repo_path)
 
-                try:
-                    shutil.copy(local_path, repo_path)
-                except FileNotFoundError:
-                    os.mkdir(os.path.dirname(repo_path))
-                    shutil.copy2(local_path, repo_path)
-
-            for conf_folder in config['folders']:
-                if os.path.isabs(conf_folder)
+    def update_local(self):
+        local_settings = self.settings['local']
+        cache_settings = self.settings['cache']
+        for app, config in cache_settings['configs']:
 
 
 if __name__ == '__main__':
     c = Config()
     c.generate_changes()
-
-# class VimConfig(Config):
-#     _file = os.path.join(self._base_path, '.vimrc')
-#     _file_bak = os.path.join(self._base_path, '.vimrc.bak')
-#     _folder = os.path.join(self._base_path, '.vim')
-#     _folder_bak = os.path.join(self._base_path, '.vim.bak')
-
-#     def check_old_configs(self):
-#         vim_config_file = self._vim_config_file
-#         vim_config_file_bak = os.path.join(self._base_path, '.vimrc.bak')
-#         if os.path.isfile(vim_config_file):
-#             os.rename(vim_config_file, vim_config_file_bak)
-#         if os.path.exists(self._vim_config_folder):
-#             os.rename(self._vim_config_folder, self._folder_bak)
-
-#     def write_new_configs(self):
-#         pass
-

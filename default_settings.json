@@ -1,0 +1,23 @@
+{
+    "configs": {
+        "vim": {
+            "files": [".vimrc"],
+            "folders": [".vim/autoload/"]
+        },
+        "zsh": {
+            "files": [".zshrc"],
+            "folders": []
+        },
+        "tmux": {
+            "files": [".tmux.conf"],
+            "folders": []
+        }
+    },
+    "cache": {
+        "location": "/home/howard/.my-configs/",
+        "configs": {}
+    },
+    "remote": {
+        "git_repo": ""
+    }
+}
