@@ -9,22 +9,24 @@ import platform
 
 
 class Config():
-    username = os.environ['USER']
-    home = os.path.join('/home/', username)
+    local_home = os.path.join('/home/', os.environ['USER'])
     bakup_extension = '.bak'
     base_dir = os.path.dirname(os.path.abspath(__file__))
     if platform.system() == 'Linux':
-        repo_home = os.path.join(home, '.my-configs')
+        cache_home = os.path.join(local_home, '.my-configs')
     elif platform.system() == 'Windowns':
-        repo_home = 'd:\\my-configs'  # TODO change to \User folder
+        cache_home = 'd:\\my-configs'  # TODO change to \User folder
     else:
-        repo_home = os.path.dirname(os.path.abspath(__file__))
+        cache_home = os.path.dirname(os.path.abspath(__file__))
 
     def __init__(self):
         # init configs
         try:
             with open(os.path.join(self.base_dir, 'settings.json')) as reader:
                 self.settings = json.load(reader)
+            if not self.settings:
+                with open(os.path.join(self.base_dir, 'default_settings.json')) as reader:
+                    self.settings = json.load(reader)
         except FileNotFoundError:
             with open(os.path.join(self.base_dir, 'default_settings.json')) as reader:
                 self.settings = json.load(reader)
@@ -51,34 +53,32 @@ class Config():
             local_path = config_path
             base_name = os.path.basename(config_path)
         else:
-            local_path = os.path.join(self.home, config_path)
+            local_path = os.path.join(self.local_home, config_path)
             base_name = config_path
-        repo_path = os.path.join(self.repo_home, app, base_name)
+        cache_path = os.path.join(self.cache_home, app, base_name)
 
         if not os.path.exists(local_path):
             raise FileNotFoundError('local config file/folder cannot be found')
-        print(local_path, repo_path)
-        if not os.path.exists(repo_path):
+        print(local_path, cache_path)
+        if not os.path.exists(cache_path):
             if not is_dir:
-                os.makedirs(os.path.dirname(repo_path))
+                os.makedirs(os.path.dirname(cache_path))
 
-        return local_path, repo_path
-
+        return local_path, cache_path
 
     def generate_changes(self):
         settings = self.settings['local']['configs']
         for app, config in settings.items():
             for conf_path in config['files']:
-                local_path, repo_path = self.read_config(conf_path, app)
-                shutil.copy2(local_path, repo_path)
+                local_path, cache_path = self.read_config(conf_path, app)
+                shutil.copy2(local_path, cache_path)
             for conf_path in config['folders']:
-                local_path, repo_path = self.read_config(conf_path, app, True)
-                if os.path.exists(repo_path):
-                    shutil.rmtree(repo_path)
-                shutil.copytree(local_path, repo_path)
+                local_path, cache_path = self.read_config(conf_path, app, True)
+                if os.path.exists(cache_path):
+                    shutil.rmtree(cache_path)
+                shutil.copytree(local_path, cache_path)
 
     def update_local(self):
-        local_settings = self.settings['local']
         cache_settings = self.settings['cache']
         for app, config in cache_settings['configs']:
 

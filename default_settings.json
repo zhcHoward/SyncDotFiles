@@ -13,9 +13,11 @@
             "folders": []
         }
     },
+    "local": {
+        "path_prefix": ""
+    },
     "cache": {
-        "location": "/home/howard/.my-configs/",
-        "configs": {}
+        "path_prefix": ""
     },
     "remote": {
         "git_repo": ""
