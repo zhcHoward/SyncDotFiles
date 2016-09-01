@@ -1,25 +1,17 @@
 {
     "configs": {
-        "vim": {
-            "files": [".vimrc"],
-            "folders": [".vim/autoload/"]
-        },
-        "zsh": {
-            "files": [".zshrc"],
-            "folders": []
-        },
-        "tmux": {
-            "files": [".tmux.conf"],
+        "bash": {
+            "files": [".bashrc"],
             "folders": []
         }
     },
     "local": {
-        "path_prefix": ""
+        "home": "/home/username/"
     },
     "cache": {
-        "path_prefix": ""
+        "home": "/home/username/"
     },
     "remote": {
-        "git_repo": ""
+        "git_repo": "your git repo name"
     }
 }
