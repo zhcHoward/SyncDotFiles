@@ -44,14 +44,20 @@ class SyncDotfiles():
 
     def upload_change(self):
         self.update_cache()
+        self.push()
 
-        # git add/commit/push
+    def push(self):
+        # git add->commit->push
         self.git.add('-A')
         now = datetime.datetime.now()
         self.git.commit("-m '{}'".format(now))
         self.git.push()
 
     def download_change(self):
+        self.pull()
+        self.update_local()
+
+    def pull(self):
         # create dir for remote files
         # git pull
         if not os.path.exists(self.cache_home):
@@ -59,8 +65,6 @@ class SyncDotfiles():
             self.git.clone(self.settings['remote']['git_repo'])
         else:
             self.git.pull()
-
-        self.update_local()
 
     def read_config(self, config_path, app, is_dir=False):
         config_path = os.path.normpath(config_path)

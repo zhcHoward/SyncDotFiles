@@ -3,7 +3,7 @@
 
 """
 Usage:
-  sync_dotfiles.py [download | upload]
+  sync_dotfiles.py [download | upload | push | pull]
 
 Options:
   -h --help         Show this screen.
@@ -25,5 +25,8 @@ if __name__ == '__main__':
     elif args['upload']:
         sync.upload_change()
         print('upload')
+    elif args['pull']:
+        sync.pull()
+        print('pull')
     else:
         print(__doc__)
