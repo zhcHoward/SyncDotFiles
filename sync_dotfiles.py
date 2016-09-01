@@ -9,7 +9,7 @@ import platform
 import datetime
 
 
-class SyncDotFiles():
+class SyncDotfiles():
     # TODO
     # if platform.system() == 'Linux':
     #     cache_home = os.path.join(local_home, '.mydotfiles')
@@ -73,12 +73,13 @@ class SyncDotFiles():
             base_name = config_path
         cache_path = os.path.join(self.cache_home, app, base_name)
 
+        print(local_path, cache_path)
         if not os.path.exists(local_path):
             raise FileNotFoundError('local config file/folder cannot be found')
-        print(local_path, cache_path)
+
         if not os.path.exists(cache_path):
             if not is_dir:
-                os.makedirs(os.path.dirname(cache_path))
+                os.makedirs(os.path.dirname(cache_path), exist_ok=True)
 
         return local_path, cache_path
 
