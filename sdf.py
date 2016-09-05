@@ -20,7 +20,7 @@ if __name__ == '__main__':
     print(args)
     sync = SyncDotfiles()
     if args['download']:
-        # sync.download_change()
+        sync.download_change()
         print('download')
     elif args['upload']:
         # sync.upload_change()

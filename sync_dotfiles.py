@@ -37,12 +37,6 @@ class SyncDotfiles():
         self.cache_home = os.path.join(self.cache_base, '.mydotfiles')
         self.git = sh.git.bake(_cwd=self.cache_home)
 
-    def is_first_time(self):
-        if os.path.isfile(os.path.join(self.base_dir, 'last_update.txt')):
-            return True
-        else:
-            return False
-
     def upload_change(self):
         self.update_cache()
         self.push()
