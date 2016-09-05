@@ -3,8 +3,7 @@
 
 """
 Usage:
-  sdf.py [push | pull]             Push cache to remote or update cache from remote.
-  sdf.py [download | upload]       Generate changes and then update local/repo files.
+  sdf.py [push | pull | download | upload]
 
 Options:
   -h --help         Show this screen.
@@ -18,7 +17,7 @@ from sync_dotfiles import SyncDotfiles
 
 if __name__ == '__main__':
     args = docopt(__doc__, version='Sync Dot Files 0.1')
-
+    print(args)
     sync = SyncDotfiles()
     if args['download']:
         # sync.download_change()
@@ -31,6 +30,7 @@ if __name__ == '__main__':
         print('pull')
     elif args['push']:
         # sync.push()
-        print()
+        print('push')
     else:
         print(__doc__)
+

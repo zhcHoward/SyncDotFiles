@@ -33,7 +33,7 @@ class SyncDotfiles():
                 self.settings = json.load(reader)
 
         self.local_home = self.settings['local']['home']
-        self.cache_home = os.path.join(self.settings['cache']['home'], '.mydotfiles')
+        self.cache_home = self.settings['cache']['home']
         self.git = sh.git.bake(_cwd=self.cache_home)
 
     def is_first_time(self):

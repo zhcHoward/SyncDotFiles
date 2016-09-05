@@ -9,7 +9,7 @@
         "home": "/home/username/"
     },
     "cache": {
-        "home": "/home/username/"
+        "home": "/home/username/.mydotfile/"
     },
     "remote": {
         "git_repo": "your git repo name"
