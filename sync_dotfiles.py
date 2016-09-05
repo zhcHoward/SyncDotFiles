@@ -33,7 +33,7 @@ class SyncDotfiles():
                 self.settings = json.load(reader)
 
         self.local_home = self.settings['local']['home']
-        self.cache_base = self.settings['cache']['home']
+        self.cache_base = self.settings['cache']['base']
         self.cache_home = os.path.join(self.cache_base, '.mydotfiles')
         self.git = sh.git.bake(_cwd=self.cache_home)
 

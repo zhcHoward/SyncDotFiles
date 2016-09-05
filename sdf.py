@@ -26,7 +26,7 @@ if __name__ == '__main__':
         # sync.upload_change()
         print('upload')
     elif args['pull']:
-        # sync.pull()
+        sync.pull()
         print('pull')
     elif args['push']:
         # sync.push()
