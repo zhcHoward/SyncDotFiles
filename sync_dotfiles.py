@@ -33,7 +33,8 @@ class SyncDotfiles():
                 self.settings = json.load(reader)
 
         self.local_home = self.settings['local']['home']
-        self.cache_home = self.settings['cache']['home']
+        self.cache_base = self.settings['cache']['home']
+        self.cache_home = os.path.join(self.cache_base, '.mydotfiles')
         self.git = sh.git.bake(_cwd=self.cache_home)
 
     def is_first_time(self):
@@ -61,7 +62,8 @@ class SyncDotfiles():
         # create dir for remote files
         # git pull
         if not os.path.exists(self.cache_home):
-            os.makedirs(self.settings['cache']['home'], exist_ok=True)
+            if not os.path.exists(self.cache_base):
+                os.makedirs(self.cache_base, exist_ok=True)
             self.git.clone(self.settings['remote']['git_repo'])
         else:
             self.git.pull()

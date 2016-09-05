@@ -6,12 +6,12 @@
         }
     },
     "local": {
-        "home": "/home/username/"
+        "home": "/home/howard/"
     },
     "cache": {
-        "home": "/home/username/.mydotfile/"
+        "base": "/home/howard/"
     },
     "remote": {
-        "git_repo": "your git repo name"
+        "git_repo": "git@github.com:zhcHoward/.mydotfiles.git"
     }
 }
