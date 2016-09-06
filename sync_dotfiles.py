@@ -110,7 +110,7 @@ class SyncDotfiles():
                 target_path = os.path.join(self.local_home, config_path)
                 if os.path.exists(target_path):
                     #os.rename(target_path, target_path + self.bakup_extension)
-                    os.renames(source_path, target_path + self.bakup_extension)
+                    os.replace(source_path, target_path + self.bakup_extension)
                 if not os.path.exists(target_path):
                     os.makedirs(target_path, exist_ok=False)
                 shutil.copytree(source_path, target_path)
