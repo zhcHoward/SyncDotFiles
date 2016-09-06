@@ -3,7 +3,7 @@
 
 """
 Usage:
-  sdf.py [push | pull | download | upload]
+  sdf.py [push | pull | download | upload | update_local | update_cache]
 
 Options:
   -h --help         Show this screen.
@@ -31,6 +31,12 @@ if __name__ == '__main__':
     elif args['push']:
         # sync.push()
         print('push')
+    elif args['update_local']:
+        sync.update_local()
+        print('update_local')
+    elif args['update_cache']:
+        print('update_cache')
+        sync.update_cache()
     else:
         print(__doc__)
 
