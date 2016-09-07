@@ -26,7 +26,5 @@
     "cache": {
         "base": "/home/howard/"
     },
-    "remote": {
-        "git_repo": "git@github.com:zhcHoward/.mydotfiles.git"
-    }
+    "git_repo": "git@github.com:zhcHoward/.mydotfiles.git"
 }

@@ -53,7 +53,7 @@ class SyncDotfiles():
         if not os.path.exists(self.cache_home):
             if not os.path.exists(self.cache_base):
                 os.makedirs(self.cache_base, exist_ok=True)
-            sh.git.clone(self.settings['remote']['git_repo'], _cwd=self.cache_base)
+            sh.git.clone(self.settings['git_repo'], _cwd=self.cache_base)
         else:
             self.git.pull()
 
