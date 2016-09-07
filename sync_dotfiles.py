@@ -96,7 +96,7 @@ class SyncDotfiles():
             for path in config['paths']:
                 local_path, cache_path = self.get_paths(app, path)
                 self.check_src_and_dst(local_path, cache_path)
-                if os.path.isdir(cache_path):
+                if os.path.isdir(local_path):
                     shutil.rmtree(cache_path)
                     shutil.copytree(local_path, cache_path)
                 else:
@@ -121,7 +121,7 @@ class SyncDotfiles():
                     shutil.rmtree(local_path + self.bakup_extension)
                     os.rename(local_path, local_path + self.bakup_extension)
 
-                if os.path.isdir(local_path):
+                if os.path.isdir(cache_path):
                     shutil.copytree(cache_path, local_path)
                 else:
                     shutil.copy2(cache_path, local_path)
