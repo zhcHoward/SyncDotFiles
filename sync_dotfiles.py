@@ -115,7 +115,8 @@ class SyncDotfiles():
                 self.check_src_and_dst(cache_path, local_path)
 
                 try:
-                    os.rename(local_path, local_path + self.bakup_extension)
+                    if os.path.exists(local_path):
+                        os.rename(local_path, local_path + self.bakup_extension)
                 except OSError:
                     shutil.rmtree(local_path + self.bakup_extension)
                     os.rename(local_path, local_path + self.bakup_extension)
