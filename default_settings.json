@@ -1,7 +1,7 @@
 {
     "configs": {
         "vim": {
-            "paths": [".vimrc", ".vim/autolaod"]
+            "paths": [".vimrc", ".vim/autoload"]
         },
         "zsh": {
             "paths": [".zshrc"]
