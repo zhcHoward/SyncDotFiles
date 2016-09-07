@@ -88,7 +88,7 @@ class SyncDotfiles():
         if not os.path.exists(src):
             raise FileNotFoundError('source file/folder "{}" cannot be found'.format(src))
 
-         if not os.path.exists(dst):
+        if not os.path.exists(dst):
             os.makedirs(os.path.dirname(dst), exist_ok=True)
 
     def update_cache(self):
