@@ -1,27 +1,23 @@
 {
     "configs": {
         "vim": {
-            "files": [".vimrc"],
-            "folders": [".vim/autoload/"]
+            "paths": [".vimrc", ".vim/autolaod"]
         },
         "zsh": {
-            "files": [".zshrc"],
-            "folders": []
+            "paths": [".zshrc"]
         },
         "tmux": {
-            "files": [".tmux.conf"],
-            "folders": []
+            "paths": [".tmux.conf"]
         },
         "sublime-text": {
             "path_prefix": ".config/sublime-text-3/Packages/User/",
-            "files": [
+            "paths": [
                 ".config/sublime-text-3/Packages/User/Anaconda.sublime-settings",
                 ".config/sublime-text-3/Packages/User/divider.sublime-snippet",
                 ".config/sublime-text-3/Packages/User/Doxy.sublime-settings",
                 ".config/sublime-text-3/Packages/User/Preferences.sublime-settings",
                 ".config/sublime-text-3/Packages/User/Package Control.sublime-settings"
-            ],
-            "folders": []
+            ]
         }
     },
     "local": {
