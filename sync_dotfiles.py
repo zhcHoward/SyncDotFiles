@@ -122,3 +122,4 @@ class SyncDotfiles():
 
         if not os.path.exists(dst):
             os.makedirs(os.path.dirname(dst), exist_ok=True)
+
