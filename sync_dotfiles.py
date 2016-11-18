@@ -67,7 +67,11 @@ class SyncDotfiles():
                 local_path, cache_path = self.get_paths(app, path)
                 self.check_src_and_dst(local_path, cache_path)
                 if os.path.isdir(local_path):
-                    shutil.rmtree(cache_path)
+                    try:
+                        # remove old directory, pass if old directory does not exist
+                        shutil.rmtree(cache_path)
+                    except FileNotFoundError:
+                        pass
                     shutil.copytree(local_path, cache_path)
                 else:
                     shutil.copy2(local_path, cache_path)
